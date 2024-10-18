@@ -1,15 +1,17 @@
 class ArticlesController < ApplicationController
+  include SetArticle
+
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
+
   def index
     @articles = Article.all
   end
 
   def show
-    @article = Article.find_by(id: params[:id])
     if @article.nil?
       redirect_to articles_path, alert: 'Article not found.'
     end
   end
-  
 
   def new
     @article = Article.new
@@ -25,29 +27,23 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
     if @article.update(article_params)
       redirect_to @article
     else
-      render :edit,status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @article = Article.find_by(id: params[:id])
     @article.destroy
-
     redirect_to root_path, status: :see_other
   end
-
 
   private
     def article_params
       params.require(:article).permit(:title, :body, :status)
     end
-
 end
