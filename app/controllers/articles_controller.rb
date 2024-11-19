@@ -1,15 +1,19 @@
 class ArticlesController < ApplicationController
   include SetArticle
 
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @articles = Article.all
+    if params[:query].present?
+      @articles = Article.where("title LIKE ?", "%#{params[:query]}%")
+    else
+      @articles = Article.all
+    end
   end
 
   def show
     if @article.nil?
-      redirect_to articles_path, alert: 'Article not found.'
+      redirect_to articles_path, alert: "Article not found."
     end
   end
 

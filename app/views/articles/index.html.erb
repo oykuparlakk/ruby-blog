@@ -3,12 +3,41 @@
 Our blog has
 <%= Article.public_count %>
 articles and counting!
+<br/>
 
-<ul>
-    <% @articles.each do |article| %>
+SEARCH GELECEK
+<%= form_with(url: articles_path, method: :get, data: { turbo_frame: "articles" }) do |form| %>
+    <%= form.text_field :query, placeholder: "Search Articles" %>
+    <%= form.submit "Search" %>
+<% end %>
+
+<br/>
+
+<%= link_to "New Article", new_article_path %>
+
+<div class="bg-blue-500 text-white p-4 text-8xl	">Tailwind Test</div>
+
+
+<table>
+    <thead>
+        <th class="font-extrabold text-gray-300">No</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </thead>
+    <% @articles.each_with_index do |article,index| %>
         <% unless article.archived? %>
-        <li>
-            <%= link_to article.title, article %>
-        </li>
+        <tr>
+            <td><%= index + 1  %></td>
+            <td><%= link_to article.title, article %></td>
+            <td><%= article.body %></td>
+            <td><%= article.status %></td>
+            <td>
+                <%= link_to "Edit", edit_article_path(article) %>
+                |
+                <%= link_to "Destroy", article_path(article), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+            </td>
+        </tr>
     <% end %>
-<% end %></ul><%= link_to "New Article", new_article_path %>
+<% end %></table>
