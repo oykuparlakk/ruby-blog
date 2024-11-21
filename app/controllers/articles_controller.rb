@@ -4,12 +4,13 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @search = Article.ransack(params[:query])
-    @articles = @search.result(distinct: true).presence || Article.all.limit(50)
+    @query = Article.ransack(params[:query])
+    @articles = @query.result(distinct: true).presence || Article.all.limit(50)
 
     Rails.logger.debug "Arama parametreleri: #{params[:query].inspect}"
     Rails.logger.debug "Bulunan makaleler: #{@articles.map(&:title).inspect}"
   end
+
 
   def search
     @query = Article.ransack(params[:query])
