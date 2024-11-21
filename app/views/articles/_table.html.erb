@@ -5,15 +5,15 @@
                 <%= sort_link(@query, :id, 'ID', { class: 'cursor-pointer' }) %>
             </th>
             <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
-                <%= sort_link(@query, :title, 'Title', { class: 'cursor-pointer' }) %>
+                <%= sort_link(@query, :title, t('table.title'), { class: 'cursor-pointer' }) %>
             </th>
             <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
-                <%= sort_link(@query, :body, 'Description', { class: 'cursor-pointer' }) %>
+                <%= sort_link(@query, :body, t('table.description'), { class: 'cursor-pointer' }) %>
             </th>
             <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
-                Status
+                <%= t('table.status') %>
             </th>
-            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">Actions</th>
+            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500"><%= t('table.actions') %></th>
         </tr>
     </thead>
 

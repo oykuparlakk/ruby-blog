@@ -1,0 +1,13 @@
+tr:
+  articles:
+    title: "Makaleler"
+    subtitle: "Blogumuzda %{count} makale var ve artmaya devam ediyor!"
+    new_article: "Yeni Makale"
+    search_placeholder: "Makaleleri Ara"
+  shared:
+    search: "Ara"
+  table:
+    title: "Ad"
+    description: "Açıklama"
+    status: "Durum"
+    actions: "Aksiyonlar"

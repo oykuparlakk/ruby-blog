@@ -1,7 +1,7 @@
 <%= search_form_for @query, url: search_articles_path, method: :get, data: { turbo_frame: "articles" } do |form| %>
     <div class="flex space-x-2 mb-6 text-gray-500">
-        <%= form.search_field :title_cont, placeholder: "Search Articles", class: "p-2 border w-80 text-gray-500" %>
+        <%= form.search_field :title_cont, placeholder: t('articles.search_placeholder'), class: "p-2 border w-80 text-gray-500" %>
         <%= form.select :status_eq, Article::VALID_STATUSES, include_blank: true, class: "p-2 border rounded-lg text-gray-500" %>
-        <%= form.submit "Search", class: "bg-blue-500 text-white p-3  hover:bg-blue-600 cursor-pointer" %>
+        <%= form.submit t('shared.search'), class: "bg-blue-500 text-white p-3 hover:bg-blue-600 cursor-pointer" %>
     </div>
 <% end %>

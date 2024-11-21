@@ -28,4 +28,15 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  articles:
+    title: "Articles"
+    subtitle: "Our blog has %{count} articles and counting!"
+    new_article: "New Article"
+    search_placeholder: "Search Articles"
+  shared:
+    search: "Search"
+  table:
+    title: "Title"
+    description: "Description"
+    status: "Status"
+    actions: "Actions"
