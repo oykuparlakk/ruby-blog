@@ -4,11 +4,21 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    if params[:query].present?
-      @articles = Article.where("title LIKE ?", "%#{params[:query]}%")
-    else
-      @articles = Article.all
-    end
+    @search = Article.ransack(params[:query])
+    @articles = @search.result(distinct: true).presence || Article.all.limit(50)
+
+    Rails.logger.debug "Arama parametreleri: #{params[:query].inspect}"
+    Rails.logger.debug "Bulunan makaleler: #{@articles.map(&:title).inspect}"
+  end
+
+  def search
+    @query = Article.ransack(params[:query])
+    @articles = @query.result(distinct: true)
+
+    Rails.logger.debug "Ransack query: #{@query.inspect}"
+    Rails.logger.debug "Articles found: #{@articles.inspect}"
+
+    render :index
   end
 
   def show
