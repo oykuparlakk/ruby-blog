@@ -1,18 +1,28 @@
-<table class="min-w-full !rounded-lg bg-white border border-gray-200 shadow-md">
+<table class="min-w-full  bg-white border border-gray-200 shadow-md">
     <thead class="bg-gray-100">
         <tr>
-            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">ID</th>
-            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">Title</th>
-            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">Description</th>
-            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">Status</th>
+            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                <%= sort_link(@query, :id, 'ID', { class: 'cursor-pointer' }) %>
+            </th>
+            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                <%= sort_link(@query, :title, 'Title', { class: 'cursor-pointer' }) %>
+            </th>
+            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                <%= sort_link(@query, :body, 'Description', { class: 'cursor-pointer' }) %>
+            </th>
+            <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                Status
+            </th>
             <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">Actions</th>
         </tr>
     </thead>
+
+
     <tbody>
         <% articles.each_with_index do |article, index| %>
             <% unless article.archived? %>
             <tr class="border-b hover:bg-gray-50">
-                <td class="py-3 px-6 text-sm text-gray-800"><%= index + 1 %></td>
+                <td class="py-3 px-6 text-sm text-gray-800"><%= article.id %></td>
                 <td class="py-3 px-6 text-sm text-gray-800"><%= link_to article.title, article %></td>
                 <td class="py-3 px-6 text-sm text-gray-800"><%= article.body.truncate(100) %></td>
                 <td class="py-3 px-6 text-sm text-gray-800"><%= article.status %></td>

@@ -5,20 +5,15 @@ class ArticlesController < ApplicationController
 
   def index
     @query = Article.ransack(params[:query])
-    @articles = @query.result(distinct: true).presence || Article.all.limit(50)
-
-    Rails.logger.debug "Arama parametreleri: #{params[:query].inspect}"
+    @articles = @query.result(distinct: true).limit(50)
     Rails.logger.debug "Bulunan makaleler: #{@articles.map(&:title).inspect}"
   end
 
-
   def search
     @query = Article.ransack(params[:query])
-    @articles = @query.result(distinct: true)
-
     Rails.logger.debug "Ransack query: #{@query.inspect}"
+    @articles = @query.result(distinct: true)
     Rails.logger.debug "Articles found: #{@articles.inspect}"
-
     render :index
   end
 
