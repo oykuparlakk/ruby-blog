@@ -12,13 +12,35 @@
     </div>
 
     <div id="articles">
-        <%= render partial: 'articles/table', locals: { articles: @articles } %>
+        <table class="min-w-full bg-white border border-gray-200 shadow-md">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                        <%= sort_link(@query, :id, 'ID', { class: 'cursor-pointer' }) %>
+                    </th>
+                    <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                        <%= sort_link(@query, :title, t('table.title'), { class: 'cursor-pointer' }) %>
+                    </th>
+                    <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                        <%= sort_link(@query, :body, t('table.description'), { class: 'cursor-pointer' }) %>
+                    </th>
+                    <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                        <%= t('table.status') %>
+                    </th>
+                    <th class="py-3 px-6 text-left text-sm font-semibold text-gray-500">
+                        <%= t('table.actions') %>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <%= render partial: 'articles/table', collection: @articles, as: :article %>
+            </tbody>
+        </table>
     </div>
 
-
-    <div class="flex justify-center items-center mt-6 space-x-2 ">
+    <div class="flex justify-center items-center mt-6 space-x-2">
         <%== pagy_nav(@pagy, link_extra: 'class="pagination-button px-4 py-4 text-sm font-semibold text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-gray-100 disabled:text-gray-300"') %>
     </div>
-
 
 </div>

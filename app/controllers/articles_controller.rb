@@ -33,7 +33,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
-      redirect_to article_path(@article, locale: I18n.locale) # locale parametresi eklendi
+      redirect_to article_path(@article, locale: I18n.locale)
     else
       render :new
     end
