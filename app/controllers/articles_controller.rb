@@ -4,16 +4,19 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
   def index
+    @locale = params[:locale] || I18n.default_locale
     @query = Article.ransack(params[:query])
-    @articles = @query.result(distinct: true).limit(50)
-    Rails.logger.debug "Bulunan makaleler: #{@articles.map(&:title).inspect}"
+    @pagy, @articles = pagy(@query.result(distinct: true), items: 10)
+    Rails.logger.debug "Articles from index: #{@articles.map(&:title).inspect}"
   end
+
+
 
   def search
     @query = Article.ransack(params[:query])
     Rails.logger.debug "Ransack query: #{@query.inspect}"
-    @articles = @query.result(distinct: true)
-    Rails.logger.debug "Articles found: #{@articles.inspect}"
+    @pagy, @articles = pagy(@query.result(distinct: true))
+    Rails.logger.debug "Articles found: #{@articles.map(&:title).inspect}"
     render :index
   end
 
@@ -30,9 +33,9 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
-      redirect_to @article
+      redirect_to article_path(@article, locale: I18n.locale) # locale parametresi eklendi
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 

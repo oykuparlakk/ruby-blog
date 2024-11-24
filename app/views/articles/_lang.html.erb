@@ -1,6 +1,0 @@
-<%= form_with(url: request.path, method: :get, local: true) do |form| %>
-    <div class="relative text-gray-500">
-        <%= form.select :locale, [["English", "en"], ["Türkçe", "tr"]], { selected: I18n.locale }, 
-                class: "block w-full p-2 pl-3 pr-8 text-sm border-gray-200 shadow-sm ", onchange: "this.form.submit();" %>
-    </div>
-<% end %>

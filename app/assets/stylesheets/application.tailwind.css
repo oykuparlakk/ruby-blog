@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./pagy_nav.css";
 
 @layer base {
   body {

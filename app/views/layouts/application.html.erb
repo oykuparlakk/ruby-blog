@@ -22,8 +22,12 @@
         <%= javascript_importmap_tags %>
     </head>
 
-    <body>
+    <body class=" mb-16">
+
         <div class="container mx-auto p-2">
+            <div class="flex items-center space-x-4 mb-4">
+                <%= render 'shared/lang' %>
+            </div>
             <%= yield %>
         </div>
 

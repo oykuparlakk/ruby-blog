@@ -62,3 +62,5 @@ group :test do
   gem "selenium-webdriver"
 end
 gem "tailwindcss-rails"
+
+gem "pagy", "~> 9.3"
