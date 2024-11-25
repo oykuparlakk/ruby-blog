@@ -1,7 +1,7 @@
 class Article < ApplicationRecord
   include Visible
 
-  scope :not_archived, -> { where(archived: false) }
+  scope :not_archived, -> { where.not(status: "archived") }
   has_many :comments, dependent: :destroy
 
   validates :title, presence: true

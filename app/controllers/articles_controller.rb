@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
 
   def index
     @locale = params[:locale] || I18n.default_locale
-    @query = Article.ransack(params[:query])
+    @query = Article.not_archived.ransack(params[:query])
     @pagy, @articles = pagy(@query.result(distinct: true), items: 10)
     Rails.logger.debug "Articles from index: #{@articles.map(&:title).inspect}"
   end
