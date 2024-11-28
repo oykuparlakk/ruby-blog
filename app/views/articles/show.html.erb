@@ -1,14 +1,24 @@
-<h1><%= @article.title %></h1>
+<section class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-8 border border-gray-200">
+    <h1 class="text-4xl font-semibold text-gray-900 mb-6 leading-tight">
+        <%= @article.title %>
+    </h1>
 
-<p><%= @article.body %></p>
+    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        <%= @article.body %>
+    </p>
 
-<ul>
-    <li><%= link_to "Edit", edit_article_path(@article) %></li>
-    <li><%= link_to "Destroy", article_path(@article), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></li>
-</ul>
+    <div class="flex justify-start gap-2 mb-8">
+        <%= link_to "Edit", edit_article_path(@article, locale: I18n.locale), class: "px-6 py-2  bg-primary-600 text-white rounded-lg hover:bg-primary-500 transition duration-200" %>
 
-<h2>Comments</h2>
-<%= render @article.comments %>
+        <%= link_to "Destroy", article_path(@article, locale: I18n.locale), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition duration-200" %>
+    </div>
 
-<h2>Add a comment:</h2>
-<%= render 'comments/form', article: @article %>
+    <h2 class="text-2xl font-semibold text-gray-900 mt-6 mb-4">Comments</h2>
+
+    <div class="space-y-6">
+        <%= render @article.comments %>
+    </div>
+
+    <h2 class="text-xl font-semibold text-gray-900 mt-8 mb-4">Add a comment:</h2>
+    <%= render 'comments/form', article: @article %>
+</section>

@@ -1,7 +1,7 @@
 module SetArticle
   extend ActiveSupport::Concern
 
-  included do 
+  included do
     before_action :set_article
   end
 

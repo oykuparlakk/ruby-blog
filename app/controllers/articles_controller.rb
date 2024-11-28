@@ -4,13 +4,10 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @locale = params[:locale] || I18n.default_locale
     @query = Article.not_archived.ransack(params[:query])
     @pagy, @articles = pagy(@query.result(distinct: true), items: 10)
     Rails.logger.debug "Articles from index: #{@articles.map(&:title).inspect}"
   end
-
-
 
   def search
     @query = Article.ransack(params[:query])
@@ -52,7 +49,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to root_path, status: :see_other
+    redirect_to articles_path(locale: I18n.locale), status: :see_other
   end
 
   private
