@@ -40,3 +40,8 @@ en:
     description: "Description"
     status: "Status"
     actions: "Actions"
+  visible:
+    valid_statuses:
+      public: "Public"
+      private: "Private"
+      archived: "Archived"

@@ -34,6 +34,7 @@ module.exports = {
           900: "#3d3d3d",
           950: "#292929",
         },
+        "off-white": "#FDFCFB",
       },
       fontFamily: {
         sans: ["Roboto", "Arial", "Helvetica", "sans-serif"],

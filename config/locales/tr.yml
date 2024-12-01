@@ -11,3 +11,8 @@ tr:
     description: "Açıklama"
     status: "Durum"
     actions: "Aksiyonlar"
+  visible:
+    valid_statuses:
+      public: "Herkes"
+      private: "Özel"
+      archived: "Arşivlendi"

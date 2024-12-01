@@ -1,10 +1,12 @@
 module Visible
   extend ActiveSupport::Concern
 
-  VALID_STATUSES = [ "public", "private", "archived" ]
+  def self.VALID_STATUSES
+    I18n.t("visible.valid_statuses").keys.map(&:to_s)
+  end
 
   included do
-    validates :status, inclusion: { in: VALID_STATUSES }
+    validates :status, inclusion: { in: Visible.VALID_STATUSES }
   end
 
   class_methods do
@@ -12,7 +14,6 @@ module Visible
       where(status: "public").count
     end
   end
-
 
   def archived?
     status == "archived"

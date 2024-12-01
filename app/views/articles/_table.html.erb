@@ -9,7 +9,7 @@
         <%= article.body.truncate(100) %>
     </td>
     <td class="py-3 px-6 text-sm text-gray-800">
-        <%= article.status %>
+        <%= t("visible.valid_statuses.#{article.status}") %>
     </td>
     <td class="py-3 px-6 text-sm">
         <%= link_to "Edit", edit_article_path(article, locale: I18n.locale), 
