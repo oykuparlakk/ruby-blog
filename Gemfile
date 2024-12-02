@@ -64,3 +64,5 @@ end
 gem "tailwindcss-rails"
 
 gem "pagy", "~> 9.3"
+
+gem "devise", "~> 4.9"

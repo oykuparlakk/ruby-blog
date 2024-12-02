@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /en|tr/ do
+    devise_for :users
     root "articles#index"
 
     resources :articles do
