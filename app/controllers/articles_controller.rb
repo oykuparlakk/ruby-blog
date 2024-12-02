@@ -41,7 +41,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to @article
+      redirect_to article_path(@article, locale: I18n.locale)
     else
       render :edit, status: :unprocessable_entity
     end

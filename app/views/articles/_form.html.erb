@@ -1,4 +1,4 @@
-<%= form_with(model: article, local: true, class: "p-6") do |form| %>
+<%= form_with(model: @article, local: true, url: article_path(@article, locale: I18n.locale)) do |form| %>
     <section>
         <% if article.errors.any? %>
             <div class="bg-red-100 text-red-800 p-4 rounded-lg mb-4">
@@ -23,10 +23,13 @@
 
     <section class="mb-4">
         <%= form.label :status, class: "block text-sm font-medium text-gray-700" %>
-        <%= form.select :status, ['Draft', 'Published'], {}, class: "h-12 px-4 border border-gray-300 rounded-md w-full text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-primary focus:outline-none" %>
+        <%= form.select :status, 
+          Visible.VALID_STATUSES.map { |status| [t("visible.valid_statuses.#{status}"), status] }, 
+          { selected: @article.status || 'public' }, 
+          class: "h-12 px-4 border border-gray-300 rounded-md w-full text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-primary-50 focus:outline-none" %>
     </section>
 
     <section class="flex justify-end">
-        <%= form.submit "Save Changes", class: "inline-block bg-indigo-600 text-white hover:cursor-pointer font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-primary-light" %>
+        <%= form.submit "Save Changes", class: "w-full bg-primary-500 text-white font-bold py-2 rounded-lg hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-700 transition duration-200" %>
     </section>
 <% end %>
