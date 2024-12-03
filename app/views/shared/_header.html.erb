@@ -7,6 +7,14 @@
             <%= link_to "Kategoriler", categories_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
             <%= link_to "Hakkımda", about_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
             <%= link_to "İletişim", contact_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+
+            <% if user_signed_in? %>
+                <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+            <% else %>
+                <%= link_to 'Login', new_user_session_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+                <%= link_to 'Sign up', new_user_registration_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+            <% end %>
+
         </nav>
 
         <div class="flex items-center space-x-4">

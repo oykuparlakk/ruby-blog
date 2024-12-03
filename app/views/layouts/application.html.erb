@@ -3,41 +3,43 @@
     <head>
         <title><%= content_for(:title) || "Blog" %></title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
-            <meta name="apple-mobile-web-app-capable" content="yes">
-                <%= csrf_meta_tags %>
-                <%= csp_meta_tag %>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
 
-                <%= yield :head %>
+        <%= yield :head %>
 
-                <link rel="manifest" href="/manifest.json">
-                    <link rel="icon" href="/icon.png" type="image/png">
-                        <link rel="icon" href="/icon.svg" type="image/svg+xml">
-                            <link rel="apple-touch-icon" href="/icon.png">
-                                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="icon" href="/icon.png" type="image/png">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/icon.png">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-                                    <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
-                                    <%= stylesheet_link_tag "tailwind", "application.tailwind","pagy", "data-turbo-track": "reload" %>
-                                    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+        <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+        <%= stylesheet_link_tag "tailwind", "application.tailwind","pagy","notification", "data-turbo-track": "reload" %>
+        <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+        <%= javascript_include_tag "turbo", type: "module" %>
+        <%= javascript_importmap_tags %>
+    </head>
 
-                                    <%= javascript_include_tag "turbo", type: "module" %>
-                                    <%= javascript_importmap_tags %>
-                                </head>
-
-                                <body class="bg-custom-gradient  bg-cover text-dark font-sans flex flex-col min-h-screen !important">
-
-                                    <%= render 'shared/header' %>
-                                    <div class="flex-grow container mx-auto p-4 sm:px-6 md:px-8">
-                                        <p class="notice"><%= notice %></p>
-                                        <p class="alert"><%= alert %></p>
-                                        <%= yield %>
-                                    </div>
-                                    <footer class="bg-transparent text-secondary-800 py-2">
-                                        <div class="container mx-auto flex justify-center items-center">
-                                            <p class="text-left text-xs">&copy;
-                                                <%= Time.now.year %>
-                                                My Blog. All rights reserved.</p>
-                                        </div>
-                                    </footer>
-
-                                </body>
-                            </html>
+    <body class="bg-custom-gradient  bg-cover text-dark font-sans flex flex-col min-h-screen !important">
+        <% unless controller_name != 'devise/sessions' || controller_name != 'devise/registrations' %>
+        <%= render 'shared/header' %>
+    <% end %>
+    <div class="flex-grow container mx-auto p-4 sm:px-6 md:px-8">
+        <% if flash[:notice] %>
+            <p class="flash-message notice"><%= flash[:notice] %></p>
+        <% end %>
+        <% if flash[:alert] %>
+            <p class="flash-message alert"><%= flash[:alert] %></p>
+        <% end %>
+        <%= yield %>
+    </div>
+    <footer class="bg-transparent text-secondary-800 py-2">
+        <div class="container mx-auto flex justify-center items-center">
+            <p class="text-left text-xs">&copy;
+                <%= Time.now.year %>
+                My Blog. All rights reserved.</p>
+        </div>
+    </footer>
+</html></body></html>

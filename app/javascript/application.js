@@ -1,5 +1,6 @@
 import "./controllers";
 import "./packs/edit_article";
+import "@rails/ujs";
 
 document.addEventListener("turbo:load", () => {
   const menuToggle = document.getElementById("menu-toggle");
@@ -14,3 +15,24 @@ document.addEventListener("turbo:load", () => {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(function () {
+    const flashMessages = document.querySelectorAll(".flash-message");
+    flashMessages.forEach(function (message) {
+      message.style.opacity = 0;
+      setTimeout(function () {
+        message.remove();
+      }, 100);
+    });
+  }, 3000);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const alertBox = document.getElementById("error_explanation");
+  if (alertBox) {
+    setTimeout(() => alertBox.remove(), 5000);
+  }
+});
+
+Rails.start();

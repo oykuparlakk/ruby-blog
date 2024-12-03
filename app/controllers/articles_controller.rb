@@ -1,6 +1,8 @@
 class ArticlesController < ApplicationController
   include SetArticle
+  include Authorization
 
+  before_action :authenticate_user!
   before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
   def index
@@ -28,11 +30,11 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.new(article_params)
     if @article.save
-      redirect_to article_path(@article, locale: I18n.locale)
+      redirect_to article_path(@article, locale: I18n.locale), notice: "Makale başarıyla oluşturuldu."
     else
-      render :new
+      render :new, alert: "Makale oluşturulamadı"
     end
   end
 
@@ -41,7 +43,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to article_path(@article, locale: I18n.locale)
+      redirect_to article_path(@article, locale: I18n.locale), notice: "Makale başarıyla güncellendi."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -49,7 +51,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to articles_path(locale: I18n.locale), status: :see_other
+    redirect_to articles_path(locale: I18n.locale), status: :see_other, notice: "Makale başarıyla silindi."
   end
 
   private
