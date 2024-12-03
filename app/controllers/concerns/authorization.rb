@@ -8,7 +8,7 @@ module Authorization
   private
 
   def authorize_author_or_admin
-    unless current_user&.admin? || current_user&.author?
+    unless current_user&.admin?
       redirect_to root_path, alert: "Bu işlem için yetkiniz yok!"
     end
   end
