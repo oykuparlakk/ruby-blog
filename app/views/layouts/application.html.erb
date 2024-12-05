@@ -19,11 +19,12 @@
         <%= stylesheet_link_tag "tailwind", "application.tailwind","pagy","notification", "data-turbo-track": "reload" %>
         <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
         <%= javascript_include_tag "turbo", type: "module" %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
         <%= javascript_importmap_tags %>
     </head>
 
     <body class="bg-custom-gradient  bg-cover text-dark font-sans flex flex-col min-h-screen !important">
-        <% if controller_name != 'sessions' && controller_name != 'registrations' %>
+        <% if controller_name != 'sessions' && controller_name != 'registrations' && controller_name != 'passwords' %>
             <%= render 'shared/header' %>
         <% end %>
 

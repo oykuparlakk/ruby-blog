@@ -33,6 +33,7 @@ en:
     subtitle: "Our blog has %{count} articles and counting!"
     new_article: "New Article"
     search_placeholder: "Search Articles"
+    status_placeholder: "Select Status"
   shared:
     search: "Search"
   table:
@@ -40,8 +41,13 @@ en:
     description: "Description"
     status: "Status"
     actions: "Actions"
+    author: "Author"
   visible:
     valid_statuses:
       public: "Public"
       private: "Private"
       archived: "Archived"
+  actions:
+    Edit : "Edit"
+    Destroy: "Destroy"
+  are_you_sure: "Are you sure?"

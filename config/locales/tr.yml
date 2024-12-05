@@ -4,6 +4,7 @@ tr:
     subtitle: "Blogumuzda %{count} makale var ve artmaya devam ediyor!"
     new_article: "Yeni Makale"
     search_placeholder: "Makaleleri Ara"
+    status_placeholder: "Durum Seç"
   shared:
     search: "Ara"
   table:
@@ -11,8 +12,13 @@ tr:
     description: "Açıklama"
     status: "Durum"
     actions: "Aksiyonlar"
+    author: "Yazar"
   visible:
     valid_statuses:
       public: "Herkes"
       private: "Özel"
       archived: "Arşivlendi"
+  actions:
+    edit: "Düzenle"
+    destroy: "Sil"
+  are_you_sure: "Emin misiniz?"

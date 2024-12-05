@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum role: { user: 0, admin: 2 }
+  has_many :articles, dependent: :destroy
+  validates :first_name, presence: true, length: { maximum: 50 }
+  validates :last_name, presence: true, length: { maximum: 50 }
 
   def admin?
     role == "admin"
@@ -12,5 +15,9 @@ class User < ApplicationRecord
 
   def user?
     role == "user"
+  end
+
+  def full_name
+    "#{first_name} #{last_name}".strip
   end
 end
