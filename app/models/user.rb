@@ -20,4 +20,10 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}".strip
   end
+
+  def update_without_password(params)
+    params.delete(:password)
+    params.delete(:password_confirmation)
+    update(params)
+  end
 end
