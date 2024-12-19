@@ -17,7 +17,7 @@
         </div>
     </td>
     <td class="py-3 px-6 text-sm">
-        <% if current_user.admin? || article.user == current_user %>
+        <% if current_user.role_admin? || article.user == current_user %>
             <%= link_to t("actions.edit"), edit_article_path(article, locale: I18n.locale), 
         class: "text-primary-600 hover:text-primary-700 transition-colors" %>
             |
