@@ -1,12 +1,11 @@
 module Users
-  class ApplicationController < ActionController::Base
-    before_action :authenticate_user!
-    before_action :set_locale
+  class ApplicationController < ::ApplicationController
+    before_action :configure_permitted_parameters, if: :devise_controller?
 
+    protected
 
-
-    def set_locale
-      I18n.locale = current_user.try(:locale) || I18n.default_locale
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:account_update, keys: [ :first_name, :last_name, :email, :password, :password_confirmation ])
     end
   end
 end

@@ -14,7 +14,7 @@
                         <%= current_user.first_name[0].upcase + current_user.last_name[0].upcase %>
                     </div>
                     <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100  font-medium" %>
-                    <%= link_to 'Edit Profile', edit_users_profile_path(locale: I18n.locale), class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+                    <%= link_to 'Edit Profile', edit_user_registration_path(locale: I18n.locale), class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
 
                 </div>
             <% else %>

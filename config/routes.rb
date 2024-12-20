@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     }
 
     devise_scope :user do
+      get "profile", to: "users/authentication/registrations#show", as: "user_profile"
       get "/users/sign_out" => "users/authentication/sessions#destroy"
     end
 
@@ -21,9 +22,5 @@ Rails.application.routes.draw do
     get "categories", to: "pages#categories"
     get "about", to: "pages#about"
     get "contact", to: "pages#contact"
-
-    namespace :users do
-      resource :profile, only: [ :edit, :update, :show ]
-    end
   end
 end
