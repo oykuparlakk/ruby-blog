@@ -1,10 +1,29 @@
-<h1>Profil:
-    <%= current_user.full_name %></h1>
-<p>Email:
-    <%= current_user.email %></p>
-<p>First Name:
-    <%= current_user.first_name %></p>
-<p>Last Name:
-    <%= current_user.last_name %></p>
+<section class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Profil Bilgileriniz</h1>
 
-<%= link_to 'Düzenle', edit_user_registration_path %>
+    <div class="space-y-4">
+        <div class="flex justify-between items-center">
+            <p class="text-lg font-medium text-gray-700">Ad Soyad:</p>
+            <p class="text-lg text-gray-900"><%= current_user.full_name %></p>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <p class="text-lg font-medium text-gray-700">Email:</p>
+            <p class="text-lg text-gray-900"><%= current_user.email %></p>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <p class="text-lg font-medium text-gray-700">İlk Ad:</p>
+            <p class="text-lg text-gray-900"><%= current_user.first_name %></p>
+        </div>
+
+        <div class="flex justify-between items-center">
+            <p class="text-lg font-medium text-gray-700">Soyad:</p>
+            <p class="text-lg text-gray-900"><%= current_user.last_name %></p>
+        </div>
+    </div>
+
+    <div class="mt-6 text-right">
+        <%= link_to 'Düzenle', edit_user_registration_path, class: "inline-block px-6 py-2 bg-primary-500 text-white font-bold rounded-lg hover:bg-primary-600 transition duration-200" %>
+    </div>
+</section>
