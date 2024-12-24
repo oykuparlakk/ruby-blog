@@ -13,7 +13,9 @@
                     <div class="w-9 h-9 border-2 border-primary-600 text-white rounded-full flex items-center justify-center font-semibold text-lg bg-primary-600 ring-4 ring-primary-100">
                         <%= current_user.first_name[0].upcase + current_user.last_name[0].upcase %>
                     </div>
-                    <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100 text-sm font-medium" %>
+                    <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100  font-medium" %>
+                    <%= link_to 'Edit Profile', edit_user_registration_path(locale: I18n.locale), class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+
                 </div>
             <% else %>
                 <%= link_to 'Login', new_user_session_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>

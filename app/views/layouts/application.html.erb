@@ -15,12 +15,11 @@
 
         <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
         <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-
         <%= javascript_importmap_tags %>
     </head>
 
-    <body class="bg-custom-gradient  bg-cover text-dark font-sans flex flex-col min-h-screen !important">
-        <% if controller_name != 'sessions' && controller_name != 'registrations' && controller_name != 'passwords' %>
+    <body class="bg-custom-gradient bg-cover text-dark font-sans flex flex-col min-h-screen !important">
+        <% if controller_name != 'sessions' && controller_name != 'passwords' && !(controller_name == 'registrations' && action_name == 'new') %>
             <%= render 'shared/header' %>
         <% end %>
 

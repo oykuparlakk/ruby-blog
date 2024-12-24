@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /en|tr/ do
-    devise_for :users, path: "users", controllers: {
-      sessions: "users/sessions",
-      registrations: "users/registrations"
-
+    devise_for :users, controllers: {
+      sessions: "users/authentication/sessions",
+      registrations: "users/authentication/registrations"
     }
+
     devise_scope :user do
-      get "/users/sign_out" => "devise/sessions#destroy"
+      get "profile", to: "users/authentication/registrations#show", as: "user_profile"
+      get "/users/sign_out" => "users/authentication/sessions#destroy"
     end
 
     root "articles#index"
