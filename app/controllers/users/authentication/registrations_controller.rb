@@ -3,8 +3,19 @@ module Users
     class RegistrationsController < Devise::RegistrationsController
       before_action :configure_sign_up_params, only: [ :create ]
       before_action :configure_account_update_params, only: [ :update ]
+      layout :determine_layout
 
       def show
+      end
+
+      private
+
+      def determine_layout
+        if %w[edit show].include?(action_name)
+          "application"
+        else
+          "devise"
+        end
       end
 
       private
