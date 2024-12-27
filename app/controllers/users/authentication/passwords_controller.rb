@@ -3,6 +3,8 @@
 module Users
   module Authentication
     class PasswordsController < Devise::PasswordsController
+      layout "devise"
+
       # GET /resource/password/new
       # def new
       #   super
