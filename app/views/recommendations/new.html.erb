@@ -1,0 +1,16 @@
+<h2 class="text-xl font-bold mb-4">Makaleyi Öner</h2>
+
+<%= form_with model: @recommendation, url: article_recommendations_path(@article, locale: I18n.locale), method: :post, local: true do |f| %>
+    <%= f.hidden_field :article_id, value: @article.id %>
+
+    <div class="mb-4">
+        <%= f.label :recommended_to, "Kime önerilsin?" %>
+        <%= f.select :recommended_to, User.where.not(id: current_user.id).map { |user| [user.full_name, user.id] }, {}, class: "border rounded px-3 py-2" %>
+    </div>
+
+    <div class="flex justify-between">
+        <%= link_to 'İptal', article_path(@article, locale: I18n.locale), class: "btn btn-secondary" %>
+        <%= f.submit "Gönder", class: "btn btn-primary" %>
+    </div>
+
+<% end %>

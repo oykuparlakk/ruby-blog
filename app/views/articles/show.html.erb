@@ -1,8 +1,9 @@
-<section class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg  border border-gray-200">
+<section class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg border border-gray-200">
+    <%= link_to "Makaleyi Öner", new_article_recommendation_path(@article, locale: I18n.locale), class: "btn btn-primary" %>
+
     <h1 class="text-4xl font-semibold text-gray-900 mb-6 leading-tight">
         <%= @article.title %>
     </h1>
-
     <p class="text-lg text-gray-700 leading-relaxed mb-6">
         <%= @article.body %>
     </p>
