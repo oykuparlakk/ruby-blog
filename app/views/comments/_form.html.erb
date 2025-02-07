@@ -1,17 +1,15 @@
-<%= form_with(model: [article, article.comments.build], local: true, url: article_comments_path(article, locale: I18n.locale)) do |form| %>
-    <section class="bg-white shadow-lg rounded-lg p-8 mb-8 border border-gray-200">
-        <div class="mb-6">
-            <%= form.label :commenter, class: "block text-sm font-semibold text-gray-900 mb-2" %>
-            <%= form.text_field :commenter, class: "h-12 px-4 border border-gray-300 rounded-lg w-full text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-primary-50 focus:outline-none"  %>
-        </div>
+<%= form_with(model: [article, article.comments.build], local: true, url: article_comments_path(article, locale: I18n.locale), class: "space-y-6 bg-gray-50 p-6 rounded-xl") do |form| %>
+    <div>
+        <%= form.label :commenter, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= form.text_field :commenter, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+    </div>
 
-        <div class="mb-6">
-            <%= form.label :body, class: "block text-sm font-semibold text-gray-900 mb-2" %>
-            <%= form.text_area :body, class: "h-32 px-4 border border-gray-300 rounded-lg w-full text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-primary-50 focus:outline-none"  %>
-        </div>
+    <div>
+        <%= form.label :body, "Your comment", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= form.text_area :body, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+    </div>
 
-        <div>
-            <%= form.submit "Add Comment", class: "w-full bg-primary-600 text-white font-semibold py-3 rounded-lg hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-50-400 transition duration-200" %>
-        </div>
-    </section>
+    <div>
+        <%= form.submit "Post Comment", class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" %>
+    </div>
 <% end %>

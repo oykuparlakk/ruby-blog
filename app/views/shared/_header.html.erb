@@ -1,37 +1,70 @@
-<header class="bg-secondary-50 text-white shadow-nav">
-    <div class="container mx-auto flex justify-between items-center py-1 px-6">
-        <%= link_to "Blog", root_path, class: "text-lg font-bold text-primary-600" %>
+<header class="bg-white shadow-md " data-controller="header">
+    <div class="container mx-auto ">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex-shrink-0">
+                <%= link_to root_path, class: "flex items-center" do %>
+                    <span class="sr-only">
+                        Blog</span>
+                    <span class="text-2xl font-bold text-primary-600">YourBlog</span>
+                <% end %>
+            </div>
 
-        <nav class="hidden md:flex items-center space-x-12">
-            <%= link_to "Anasayfa", root_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
-            <%= link_to "Kategoriler", categories_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
-            <%= link_to "Hakkımda", about_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
-            <%= link_to "İletişim", contact_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+            <nav class="hidden md:flex items-center space-x-12">
+                <%= link_to "Anasayfa", root_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+                <%= link_to "Hakkımda", about_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+                <%= link_to "İletişim", contact_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+                <%= link_to "Etiketler", tags_path, class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
+            </nav>
 
-            <% if user_signed_in? %>
-                <div class="flex items-center space-x-3">
-                    <div class="w-9 h-9 border-2 border-primary-600 text-white rounded-full flex items-center justify-center font-semibold text-lg bg-primary-600 ring-4 ring-primary-100">
+            <div class="hidden md:flex items-center space-x-4">
+
+                <div class="relative" data-controller="dropdown">
+                    <button type="button" data-action="click->dropdown#toggle" class="w-9 h-9 border-2 border-primary-600 text-white rounded-full flex items-center justify-center font-semibold text-lg bg-primary-600 ring-4 ring-primary-100" aria-expanded="false">
                         <%= current_user.first_name[0].upcase + current_user.last_name[0].upcase %>
+
+                    </button>
+                    <div data-dropdown-target="menu" class="hidden absolute z-10 right-0 transform -translate-x-1 mt-3 px-2 w-screen max-w-md sm:px-0" style="position:absolute;">
+                        <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                            <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                                <%= link_to 'Edit Profile', edit_user_registration_path(locale: I18n.locale), class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+                                <%= link_to 'Bildirimlerim', destroy_user_session_path(locale: I18n.locale), class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+                                <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+                            </div>
+                        </div>
                     </div>
-                    <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100  font-medium" %>
-                    <%= link_to 'Edit Profile', edit_user_registration_path(locale: I18n.locale), class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
-
                 </div>
-            <% else %>
-                <%= link_to 'Login', new_user_session_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
-                <%= link_to 'Sign up', new_user_registration_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100" %>
-            <% end %>
 
-        </nav>
+            </div>
 
-        <div class="flex items-center space-x-4">
-            <%= render 'shared/lang' %>
+
+            <div class="-mr-2 flex md:hidden">
+                <button data-action="click->header#toggleMenu" type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-secondary-400 hover:text-secondary-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
         </div>
+    </div>
 
-        <button id="menu-toggle" class="block md:hidden text-white focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
+    <div data-header-target="mobileMenu" class="hidden md:hidden bg-white w-full h-full" style="position:absolute;">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <%= link_to "Anasayfa", root_path, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+            <%= link_to "Kategoriler", categories_path, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+            <%= link_to "Hakkımda", about_path, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+            <%= link_to "İletişim", contact_path, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+        </div>
+        <div class="pt-4 pb-3 border-t border-gray-200">
+            <div class="px-2 space-y-1">
+                <% if user_signed_in? %>
+                    <%= link_to 'Edit Profile', edit_user_registration_path(locale: I18n.locale), class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+                    <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+                <% else %>
+                    <%= link_to 'Login', new_user_session_path, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+                    <%= link_to 'Sign Up', new_user_registration_path, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+                <% end %>
+            </div>
+        </div>
     </div>
 </header>

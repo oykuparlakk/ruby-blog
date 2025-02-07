@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :tags, only: [ :index, :show ]
+
     get "categories", to: "pages#categories"
     get "about", to: "pages#about"
     get "contact", to: "pages#contact"

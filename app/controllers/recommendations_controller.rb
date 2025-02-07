@@ -19,6 +19,9 @@ class RecommendationsController < ApplicationController
   end
 
 
+  def index
+    @recommendations = current_user.recommendations.includes(:article)
+  end
 
   private
 

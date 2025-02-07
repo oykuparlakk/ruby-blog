@@ -11,6 +11,11 @@ class Article < ApplicationRecord
   has_many :recommendations, dependent: :destroy
   has_many :recommended_users, through: :recommendations, source: :recommended_user
 
+  has_many :article_tags, dependent: :destroy
+  has_many :tags, through: :article_tags
+
+  accepts_nested_attributes_for :tags, allow_destroy: true
+
   def self.ransackable_attributes(auth_object = nil)
     [ "id", "title", "body", "status" ]
   end
