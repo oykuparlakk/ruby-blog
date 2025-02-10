@@ -4,6 +4,8 @@ class Article < ApplicationRecord
   scope :not_archived, -> { where.not(status: "archived") }
   has_many :comments, dependent: :destroy
 
+  has_one_attached :image
+
   validates :title, presence: true
   validates :body, presence: true, length: { minimum: 10 }
 

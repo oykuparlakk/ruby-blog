@@ -1,4 +1,3 @@
-// app/javascript/controllers/toc_controller.js
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -32,7 +31,7 @@ export default class extends Controller {
       a.href = `#${heading.id}`;
       a.textContent = heading.textContent;
       a.className =
-        "text-primary-600 hover:text-primary-800 transition-colors text-sm";
+        "text-primary-500 hover:text-primary-800 transition-colors text-sm";
 
       li.appendChild(a);
       ul.appendChild(li);
