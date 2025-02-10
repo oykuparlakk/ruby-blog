@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+    <head>
+        <title><%= content_for?(:title) ? yield(:title) : "Article Detail" %></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+        <%= yield :head %>
+        <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+        <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+        <%= javascript_importmap_tags %>
+    </head>
+    <body class="article-detail">
+        <%= render 'shared/article_header' %>
+
+
+        <div class="content">
+            <% if flash[:notice] || flash[:alert] %>
+                <div data-controller="notification" data-notification-delay-value="3000">
+                    <% if flash[:notice] %>
+                        <p class="flash-message notice opacity-100 transition duration-500"><%= flash[:notice] %></p>
+                    <% end %>
+                    <% if flash[:alert] %>
+                        <p class="flash-message alert opacity-100 transition duration-500"><%= flash[:alert] %></p>
+                    <% end %>
+                </div>
+            <% end %>
+            <%= yield %>
+        </div>
+
+        <footer class="bg-transparent text-secondary-800 py-2">
+            <div class="container mx-auto flex justify-center items-center">
+                <p class="text-left text-xs">&copy;
+                    <%= Time.now.year %>
+                    My Blog. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+</html>

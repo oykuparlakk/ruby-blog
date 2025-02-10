@@ -1,0 +1,18 @@
+<h1><%= @tag.name %>
+    Etiketi ile İlgili Makaleler</h1>
+
+<% if @articles.any? %>
+    <ul>
+        <% @articles.each do |article| %>
+            <li>
+                <%= link_to article.title, article_path(article) %>
+                <small>(Yazar:
+                    <%= article.user.name %>)</small>
+            </li>
+        <% end %>
+    </ul>
+<% else %>
+    <p>Bu etikete ait makale bulunamadı.</p>
+<% end %>
+
+<%= link_to "Tüm Etiketler", tags_path %>

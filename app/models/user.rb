@@ -10,6 +10,9 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
 
+  has_many :recommendations, dependent: :destroy
+  has_many :recommended_articles, through: :recommendations, source: :article
+
   def full_name
     "#{first_name} #{last_name}".strip
   end

@@ -13,14 +13,19 @@ Rails.application.routes.draw do
     root "articles#index"
 
     resources :articles do
+      resources :recommendations, only: [ :create, :new ]
       resources :comments, only: [ :create, :destroy ], param: :article_id
       collection do
         get "search", to: "articles#search"
       end
     end
 
+    resources :tags, only: [ :index, :show ]
+
     get "categories", to: "pages#categories"
     get "about", to: "pages#about"
     get "contact", to: "pages#contact"
+
+    get "recommendations", to: "recommendations#index", as: "recommendations"
   end
 end

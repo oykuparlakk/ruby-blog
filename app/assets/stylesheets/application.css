@@ -13,4 +13,26 @@
 *= require_tree .
 *= require_self
 */
- 
+
+@layer components {
+  .article-card {
+    @apply bg-white shadow-lg rounded-lg p-6 transition duration-300 ease-in-out hover:scale-105;
+  }
+
+  .article-card-title {
+    @apply text-xl font-semibold text-gray-800 hover:text-primary-600 transition duration-300 ease-in-out;
+  }
+
+  .article-card-excerpt {
+    @apply text-gray-600 mt-2 line-clamp-3;
+  }
+
+  .article-card-meta {
+    @apply text-sm text-gray-500 mt-4;
+  }
+
+  .article-card-image {
+    /* Resim varsa */
+    @apply rounded-lg object-cover w-full h-48 mb-4;
+  }
+}
