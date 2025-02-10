@@ -26,9 +26,9 @@
                     <div data-dropdown-target="menu" class="hidden absolute z-10 right-0 transform -translate-x-1 mt-3 px-2 w-screen max-w-md sm:px-0" style="position:absolute;">
                         <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                             <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                                <%= link_to 'Edit Profile', edit_user_registration_path(locale: I18n.locale), class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
-                                <%= link_to 'Bildirimlerim', destroy_user_session_path(locale: I18n.locale), class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
-                                <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+                                <%= link_to 'Edit Profile', edit_user_registration_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+                                <%= link_to 'Bildirimlerim', recommendations_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+                                <%= link_to 'Logout', destroy_user_session_path , method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
                             </div>
                         </div>
                     </div>
@@ -58,8 +58,8 @@
         <div class="pt-4 pb-3 border-t border-gray-200">
             <div class="px-2 space-y-1">
                 <% if user_signed_in? %>
-                    <%= link_to 'Edit Profile', edit_user_registration_path(locale: I18n.locale), class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
-                    <%= link_to 'Logout', destroy_user_session_path(locale: I18n.locale), method: :delete, data: { turbo: false }, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+                    <%= link_to 'Edit Profile', edit_user_registration_path , class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
+                    <%= link_to 'Logout', destroy_user_session_path , method: :delete, data: { turbo: false }, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
                 <% else %>
                     <%= link_to 'Login', new_user_session_path, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>
                     <%= link_to 'Sign Up', new_user_registration_path, class: "block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-400 hover:bg-gray-50" %>

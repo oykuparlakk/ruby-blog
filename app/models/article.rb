@@ -16,6 +16,9 @@ class Article < ApplicationRecord
 
   accepts_nested_attributes_for :tags, allow_destroy: true
 
+  has_rich_text :body
+
+
   def self.ransackable_attributes(auth_object = nil)
     [ "id", "title", "body", "status" ]
   end

@@ -25,5 +25,7 @@ Rails.application.routes.draw do
     get "categories", to: "pages#categories"
     get "about", to: "pages#about"
     get "contact", to: "pages#contact"
+
+    get "recommendations", to: "recommendations#index", as: "recommendations"
   end
 end

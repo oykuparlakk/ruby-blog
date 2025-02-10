@@ -1,32 +1,32 @@
 class RecommendationsController < ApplicationController
-  before_action :set_article
+  before_action :set_article, only: [ :new, :create ]
 
   def new
     @recommendation = Recommendation.new
   end
 
   def create
-    @article = Article.find(params[:article_id])
     @recommendation = @article.recommendations.new(recommendation_params)
     @recommendation.user = current_user
 
     if @recommendation.save
-      redirect_to article_path(@article, locale: I18n.locale), notice: "Recommendation was successfully created."
+      redirect_to article_path(@article), notice: "Recommendation was successfully created."
     else
       flash[:error] = @recommendation.errors.full_messages.to_sentence
       render :new
     end
   end
 
-
   def index
-    @recommendations = current_user.recommendations.includes(:article)
+    @recommendations = Recommendation.where(recommended_to: current_user.id).includes(:article, :user)
   end
 
   private
 
   def set_article
-    @article = Article.find(params[:article_id])
+    if params[:article_id]
+      @article = Article.find(params[:article_id])
+    end
   end
 
   def recommendation_params

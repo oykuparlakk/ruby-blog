@@ -17,4 +17,8 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource_or_scope)
     root_path
   end
+
+  def default_url_options
+    { locale: I18n.locale }
+  end
 end

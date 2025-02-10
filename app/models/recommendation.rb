@@ -1,6 +1,6 @@
 class Recommendation < ApplicationRecord
-  belongs_to :article
   belongs_to :user
+  belongs_to :article
   belongs_to :recommended_user, class_name: "User", foreign_key: "recommended_to"
   validates :recommended_to, presence: true
   validate :cannot_recommend_to_self

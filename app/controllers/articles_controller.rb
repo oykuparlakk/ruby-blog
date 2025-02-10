@@ -21,8 +21,9 @@ class ArticlesController < ApplicationController
 
   def show
     if @article.nil?
-      redirect_to articles_path, alert: "Article not found."
+      redirect_to articles_path, alert: "Article not found." and return
     end
+    render :show, layout: "article_show"
   end
 
   def new
@@ -33,7 +34,7 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.new(article_params)
     if @article.save
-      redirect_to article_path(@article, locale: I18n.locale), notice: "Makale başarıyla oluşturuldu."
+      redirect_to article_path(@article), notice: "Makale başarıyla oluşturuldu."
     else
       render :new, alert: "Makale oluşturulamadı"
     end
@@ -44,7 +45,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to article_path(@article, locale: I18n.locale), notice: "Makale başarıyla güncellendi."
+      redirect_to article_path(@article), notice: "Makale başarıyla güncellendi."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -52,7 +53,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to articles_path(locale: I18n.locale), status: :see_other, notice: "Makale başarıyla silindi."
+    redirect_to articles_path, status: :see_other, notice: "Makale başarıyla silindi."
   end
 
   private

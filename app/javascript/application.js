@@ -8,3 +8,6 @@ window.Stimulus = application;
 eagerLoadControllersFrom("controllers", application);
 
 console.log("Stimulus initialized!", window.Stimulus.controllers);
+
+import "trix"
+import "@rails/actiontext"

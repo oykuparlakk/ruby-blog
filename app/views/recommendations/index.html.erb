@@ -1,0 +1,17 @@
+<h1>Gelen Öneriler</h1>
+
+<% if @recommendations.any? %>
+    <ul>
+        <% @recommendations.each do |recommendation| %>
+            <li>
+                <%= link_to recommendation.article.title, article_path(recommendation.article) %>
+                - Öneren:
+                <%= recommendation.user ? recommendation.user.first_name : 'Bilinmeyen' %>
+            </li>
+        <% end %>
+    </ul>
+
+
+<% else %>
+    <p>Henüz size gelen bir öneri yok.</p>
+<% end %>
