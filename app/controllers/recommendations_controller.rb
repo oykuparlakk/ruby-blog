@@ -1,8 +1,11 @@
 class RecommendationsController < ApplicationController
   before_action :set_article, only: [ :new, :create ]
-
   def new
     @recommendation = Recommendation.new
+
+    respond_to do |format|
+      format.html { render "recommendations/new", layout: false }
+    end
   end
 
   def create
