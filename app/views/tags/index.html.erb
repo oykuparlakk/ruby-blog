@@ -1,11 +1,17 @@
-<div class="max-w-6xl mx-auto relative">
-    <nav class="flex flex-wrap gap-2 mb-6 shadow-md bg-gray-100 p-2 rounded-lg">
-        <% @tags.each do |tag| %>
-            <%= link_to tag.name, tag_path(tag), data: { turbo_frame: "articles" }, class: "px-4 py-2 rounded-md text-sm font-medium transition-colors duration-150 focus:outline-none focus:ring-2 focus:shadow-lg focus:ring-offset-2 focus:ring-primary-500 bg-white hover:bg-primary-300" %>
+<div class="container mx-auto p-4" data-controller="tabs" data-tabs-active-tab-class="bg-white border-l border-t border-r rounded-t text-primary-700">
+    <ul class="flex border-b">
+        <% @tags.each_with_index do |tag, index| %>
+            <li class="mr-1" data-tabs-target="tab" data-action="click->tabs#change:prevent">
+                <%= link_to tag.name, tag_path(tag), class: "inline-block py-2 px-4 text-sm font-medium text-secondary-600 hover:text-primary-600 rounded-t-lg transition duration-200", data: { turbo_frame: "tab_#{tag.id}" } %>
+            </li>
         <% end %>
-    </nav>
+    </ul>
 
-    <turbo-frame id="articles">
-        <p class="text-center text-gray-500">Bir etikete tıklayarak o etikete ait makaleleri görüntüleyebilirsiniz.</p>
-    </turbo-frame>
+    <% @tags.each do |tag| %>
+        <div class="hidden py-4 px-4 bg-white border-l border-b border-r rounded-b" data-tabs-target="panel" id="tab_<%= tag.id %>">
+            <turbo-frame id="tab_<%= tag.id %>_frame">
+                <%= render 'articles/list', articles: tag.articles.not_archived %>
+            </turbo-frame>
+        </div>
+    <% end %>
 </div>
