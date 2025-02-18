@@ -1,7 +1,0 @@
-<%= turbo_stream.update dom_id do %>
-    <%= render partial: "shared/modal_content", locals: { title: title, content: content } %>
-<% end %>
-
-<%= turbo_stream.append_all "body" do %>
-    <%= render partial: "shared/modal", locals: { title: title, dom_id: dom_id } %>
-<% end %>

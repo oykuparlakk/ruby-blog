@@ -1,43 +1,28 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["modal", "trigger", "content"];
+  static targets = ["parent", "frame"];
 
   connect() {
-    console.log("Modal Controller Yüklendi:", this.modalTarget);
+    const frameTarget = this.frameTarget;
+    const observer = new MutationObserver((changes) => {
+      changes.forEach((change) => {
+        if (change.attributeName === "src" && frameTarget.src) {
+          this.open();
+        }
+      });
+    });
+
+    observer.observe(frameTarget, { attributes: true });
   }
 
   open() {
-    if (!this.modalTarget) {
-      console.error("Modal target bulunamadı!");
-      return;
-    }
-    this.modalTarget.showModal();
-    this.loadForm();
+    this.parentTarget.classList.remove("hidden");
   }
 
   close() {
-    this.modalTarget.close();
-  }
-
-  submitEnd(event) {
-    if (event.detail.success) {
-      this.close();
-    }
-  }
-
-  loadForm() {
-    if (!this.contentTarget) {
-      console.error("Content target bulunamadı!");
-      return;
-    }
-
-    const url = this.contentTarget.dataset.formUrl;
-    fetch(url)
-      .then((response) => response.text())
-      .then((html) => {
-        this.contentTarget.innerHTML = html;
-      })
-      .catch((error) => console.error("Form yüklenirken hata oluştu:", error));
+    this.frameTarget.removeAttribute("src");
+    this.parentTarget.classList.add("hidden");
+    window.location.reload();
   }
 }

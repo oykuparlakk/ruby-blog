@@ -1,11 +1,8 @@
 class RecommendationsController < ApplicationController
   before_action :set_article, only: [ :new, :create ]
+
   def new
     @recommendation = Recommendation.new
-
-    respond_to do |format|
-      format.html { render "recommendations/new", layout: false }
-    end
   end
 
   def create
@@ -16,9 +13,9 @@ class RecommendationsController < ApplicationController
       redirect_to article_path(@article), notice: "Recommendation was successfully created."
     else
       flash[:error] = @recommendation.errors.full_messages.to_sentence
-      render :new
     end
   end
+
 
   def index
     @recommendations = Recommendation.where(recommended_to: current_user.id).includes(:article, :user)
