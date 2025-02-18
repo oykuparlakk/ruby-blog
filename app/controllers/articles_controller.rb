@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
     if @article.nil?
       redirect_to articles_path, alert: "Article not found." and return
     end
+    @recommendation = Recommendation.new(article: @article)
     render :show, layout: "article_show"
   end
 
