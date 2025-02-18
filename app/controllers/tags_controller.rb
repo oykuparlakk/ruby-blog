@@ -5,13 +5,15 @@ class TagsController < ApplicationController
     @tags = Tag.all
   end
 
-  def show
+ def show
     @tag = Tag.find(params[:id])
     @articles = @tag.articles.not_archived
 
     respond_to do |format|
-      format.html
-      format.json { render json: { articles: @articles.as_json(only: [ :id, :title ]) } }
+      format.html { render "index" }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("tab_#{@tag.id}_frame", partial: "articles/list", locals: { articles: @articles })
+      end
     end
   end
 
