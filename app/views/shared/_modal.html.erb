@@ -5,8 +5,8 @@
                 &times;
             </button>
         </div>
-        <div class="p-6 space-y-6 text-gray-700 ">
-            <%= turbo_frame_tag 'modal', data: { "modal-target": "frame" } do %><% end %>
+        <div class="p-6 space-y-6 text-gray-700">
+            <%= turbo_frame_tag 'modal', data: { "modal-target": "frame", "action": "turbo:frame-load->modal#open" } do %><% end %>
         </div>
     </div>
 </div>
