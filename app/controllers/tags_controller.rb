@@ -5,14 +5,16 @@ class TagsController < ApplicationController
     @tags = Tag.all
   end
 
- def show
-    @tag = Tag.find(params[:id])
-    @articles = @tag.articles.not_archived
+  def show
+    @tag = Tag.find(params[:id]) # <-- @tag tanımlandı
 
     respond_to do |format|
-      format.html { render "index" }
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace("tab_#{@tag.id}_frame", partial: "articles/list", locals: { articles: @articles })
+        render turbo_stream: turbo_stream.replace(
+          "articles_frame",
+          partial: "articles/list",
+          locals: { articles: @tag.articles.not_archived }
+        )
       end
     end
   end
