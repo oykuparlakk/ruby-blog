@@ -6,5 +6,7 @@ class CreateLikes < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
+
+    add_index :likes, [ :user_id, :article_id ], unique: true # Bir kullanıcı bir makaleyi bir kez beğenebilir
   end
 end

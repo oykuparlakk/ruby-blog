@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :recommendations, dependent: :destroy
   has_many :recommended_articles, through: :recommendations, source: :article
 
+  has_many :likes
   has_many :liked_articles, through: :likes, source: :article
 
   def full_name

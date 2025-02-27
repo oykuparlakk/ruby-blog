@@ -1,0 +1,7 @@
+<div data-controller="notification" data-notification-delay-value="3000">
+    <% if message.present? %>
+        <p class="flash-message notice opacity-100 transition duration-500">
+            <%= message %>
+        </p>
+    <% end %>
+</div>

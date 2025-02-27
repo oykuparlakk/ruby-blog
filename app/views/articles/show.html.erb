@@ -52,6 +52,14 @@
 
     <div class="max-w-7xl mx-auto overflow-hidden">
 
+        <div class="p-4">
+            <%= turbo_stream_from "article_#{@article.id}_likes" %>
+            <%= turbo_stream_from "likes_count" %>
+
+            <%= render partial: "articles/like_button", formats: [:html], locals: { article: @article } %>
+            <%= render partial: "articles/like_count", locals: { article: @article } %>
+        </div>
+
 
         <div class="flex flex-col lg:flex-row gap-8 p-6">
             <div class="lg:w-3/4">

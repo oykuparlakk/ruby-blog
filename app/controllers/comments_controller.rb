@@ -6,7 +6,11 @@ class CommentsController < ApplicationController
   def create
     @comment = @article.comments.build(comment_params)
     if @comment.save
-      redirect_to @article, notice: "Comment was successfully created."
+      notice_message = "Comment was successfully created."
+      respond_to do |format|
+        format.html { redirect_to @article, notice: notice_message }
+        format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+      end
     else
       render "articles/show"
     end
@@ -15,7 +19,11 @@ class CommentsController < ApplicationController
   def destroy
     @comment = @article.comments.find(params[:id])
     @comment.destroy
-    redirect_to article_path(@article), status: :see_other
+    notice_message = "Comment was successfully destroyed."
+    respond_to do |format|
+      format.html { redirect_to article_path(@article), status: :see_other, notice: notice_message }
+      format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+    end
   end
 
   private

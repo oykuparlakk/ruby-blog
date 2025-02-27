@@ -10,12 +10,19 @@ class RecommendationsController < ApplicationController
     @recommendation.user = current_user
 
     if @recommendation.save
-      redirect_to article_path(@article), notice: "Recommendation was successfully created."
+      notice_message = "Recommendation was successfully created."
+      respond_to do |format|
+        format.html { redirect_to article_path(@article), notice: notice_message }
+        format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+      end
     else
-      flash[:error] = @recommendation.errors.full_messages.to_sentence
+      error_message = @recommendation.errors.full_messages.to_sentence
+      respond_to do |format|
+        format.html { redirect_to article_path(@article), alert: error_message }
+        format.turbo_stream { render turbo_stream: view_context.turbo_notification(error_message) }
+      end
     end
   end
-
 
   def index
     @recommendations = Recommendation.where(recommended_to: current_user.id).includes(:article, :user)
@@ -24,9 +31,7 @@ class RecommendationsController < ApplicationController
   private
 
   def set_article
-    if params[:article_id]
-      @article = Article.find(params[:article_id])
-    end
+    @article = Article.find(params[:article_id]) if params[:article_id]
   end
 
   def recommendation_params

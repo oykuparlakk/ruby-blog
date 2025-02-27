@@ -20,7 +20,8 @@ class Article < ApplicationRecord
 
   has_rich_text :body
 
-  has_many :liked_by_users, through: :likes, source: :user
+  has_many :likes
+  has_many :liked_users, through: :likes, source: :user
 
   def self.ransackable_attributes(auth_object = nil)
     [ "id", "title", "body", "status" ]

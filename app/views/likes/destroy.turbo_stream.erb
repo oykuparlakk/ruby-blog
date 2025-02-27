@@ -1,0 +1,10 @@
+<turbo-stream action="replace" target="article_<%= @article.id %>_like_button">
+    <template>
+        <%= render partial: "articles/like_button", formats: [:html], locals: { article: @article } %>
+    </template>
+</turbo-stream>
+<turbo-stream action="replace" target="article_<%= @article.id %>_likes_count">
+    <template>
+        <%= render partial: "articles/like_count", formats: [:html], locals: { article: @article } %>
+    </template>
+</turbo-stream>

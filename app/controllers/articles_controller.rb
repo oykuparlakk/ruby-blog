@@ -35,7 +35,12 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.new(article_params)
     if @article.save
-      redirect_to article_path(@article), notice: "Makale başarıyla oluşturuldu."
+      notice_message = "Makale başarıyla oluşturuldu."
+
+      respond_to do |format|
+        format.html { redirect_to article_path(@article), notice: notice_message }
+        format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+      end
     else
       render :new, alert: "Makale oluşturulamadı"
     end
@@ -46,7 +51,11 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to article_path(@article), notice: "Makale başarıyla güncellendi."
+      notice_message = "Makale başarıyla güncellendi."
+      respond_to do |format|
+        format.html { redirect_to article_path(@article), notice: notice_message }
+        format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -54,7 +63,11 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to articles_path, status: :see_other, notice: "Makale başarıyla silindi."
+    notice_message = "Makale başarıyla silindi."
+    respond_to do |format|
+      format.html { redirect_to articles_path, status: :see_other, notice: notice_message }
+      format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+    end
   end
 
   private
