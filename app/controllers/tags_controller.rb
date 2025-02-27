@@ -6,8 +6,7 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find(params[:id]) # <-- @tag tanımlandı
-
+    @tag = Tag.find(params[:id])
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
@@ -26,7 +25,11 @@ class TagsController < ApplicationController
   def create
     @tag = Tag.new(tag_params)
     if @tag.save
-      redirect_to tags_path, notice: "Tag başarıyla oluşturuldu."
+      notice_message = "Tag başarıyla oluşturuldu."
+      respond_to do |format|
+        format.html { redirect_to tags_path, notice: notice_message }
+        format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+      end
     else
       render :new
     end
@@ -37,7 +40,11 @@ class TagsController < ApplicationController
 
   def update
     if @tag.update(tag_params)
-      redirect_to tags_path, notice: "Tag başarıyla güncellendi."
+      notice_message = "Tag başarıyla güncellendi."
+      respond_to do |format|
+        format.html { redirect_to tags_path, notice: notice_message }
+        format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+      end
     else
       render :edit
     end
@@ -45,7 +52,11 @@ class TagsController < ApplicationController
 
   def destroy
     @tag.destroy
-    redirect_to tags_path, notice: "Tag başarıyla silindi."
+    notice_message = "Tag başarıyla silindi."
+    respond_to do |format|
+      format.html { redirect_to tags_path, notice: notice_message }
+      format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
+    end
   end
 
   private

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     root "articles#index"
 
     resources :articles do
+      resources :likes, only: [ :create, :destroy ]
       resources :recommendations, only: [ :create, :new ]
       resources :comments, only: [ :create, :destroy ], param: :article_id
       collection do
