@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Makale Önerisi</title>
+                <style>
+                    body
+                    {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        line-height: 1.6;
+                        color: #333;
+                        background-color: #f9f9f9;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .email-container
+                    {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        background-color: #ffffff;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+                    }
+                    .email-header
+                    {
+                        background-color: #7916ff;
+                        color: white;
+                        padding: 20px;
+                        text-align: center;
+                    }
+                    .email-content
+                    {
+                        padding: 30px;
+                    }
+                    .email-footer
+                    {
+                        background-color: #f5f5f5;
+                        padding: 15px;
+                        text-align: center;
+                        font-size: 12px;
+                        color: #666;
+                    }
+                    .user-name
+                    {
+                        font-weight: bold;
+                        color: #7916ff;
+                    }
+                    .cta-button
+                    {
+                        display: inline-block;
+                        background-color: #7916ff;
+                        color: white;
+                        text-decoration: none;
+                        padding: 12px 24px;
+                        border-radius: 4px;
+                        margin-top: 20px;
+                        font-weight: bold;
+                    }
+                    .recommendation-box
+                    {
+                        background-color: #f5f8ff;
+                        border-left: 4px solid #7916ff;
+                        padding: 15px;
+                        margin: 20px 0;
+                        border-radius: 0 4px 4px 0;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="email-container">
+                    <div class="email-header">
+                        <h1>Makale Önerisi</h1>
+                    </div>
+
+                    <div class="email-content">
+                        <p>Merhaba
+                            <span class="user-name"><%= [@recommendation.recommended_user.first_name, @recommendation.recommended_user.last_name].join(" ") %></span>,</p>
+
+                        <div class="recommendation-box">
+                            <p>
+                                <span class="user-name"><%= [@recommendation.user.first_name, @recommendation.user.last_name].join(" ") %></span>
+                                size özel bir makale önerdi!
+                            </p>
+                        </div>
+
+                        <p>Bu öneriyi incelemek ve makaleyi okumak için aşağıdaki butona tıklayabilirsiniz:</p>
+
+                        <div style="text-align: center;">
+                            <%= link_to 'Makaleyi Görüntüle', article_url(@recommendation.article, locale: I18n.locale), class: 'cta-button' %>
+                        </div>
+
+                        <p style="margin-top: 30px;">İyi okumalar dileriz!</p>
+                    </div>
+
+                    <div class="email-footer">
+                        <p>Bu e-posta size
+                            <%= [@recommendation.user.first_name, @recommendation.user.last_name].join(" ") %>
+                            tarafından gönderilmiştir.</p>
+                        <p>©
+                            <%= Date.today.year %>
+                            Tüm Hakları Saklıdır</p>
+                    </div>
+                </div>
+            </body>
+        </html>
+    </head>
+</html>
