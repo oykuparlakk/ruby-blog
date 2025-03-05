@@ -1,0 +1,22 @@
+<%= turbo_stream_from "notification_count_#{user.id}" %>
+<% unread_count = user.notifications.unread.count %>
+<div class="relative">
+    <%= link_to notifications_path, class: "relative flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition duration-150 group" do %>
+        <div class="flex-shrink-0 mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-primary-500" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+            </svg>
+        </div>
+
+        <div class="flex-grow">
+            <p class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary-500">Bildirimlerim</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Tüm bildirimlerinizi görüntüleyin</p>
+        </div>
+
+        <% if unread_count.positive? %>
+            <span class="absolute top-0 right-0 transform translate-x-2 -translate-y-2 flex items-center justify-center h-5 w-5 text-xs font-bold text-white bg-red-600 rounded-full">
+                <%= unread_count %>
+            </span>
+        <% end %>
+    <% end %>
+</div>

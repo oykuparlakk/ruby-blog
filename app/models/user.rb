@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   has_many :likes
   has_many :liked_articles, through: :likes, source: :article
-
+  has_many :notifications, dependent: :destroy
   def full_name
     "#{first_name} #{last_name}".strip
   end

@@ -21,6 +21,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :notifications, only: [ :index ] do
+      member do
+        post :mark_as_read
+      end
+    end
+
     resources :tags, only: [ :index, :show ]
 
     get "categories", to: "pages#categories"
