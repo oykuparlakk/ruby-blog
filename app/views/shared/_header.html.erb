@@ -23,12 +23,47 @@
                         <%= current_user.first_name[0].upcase + current_user.last_name[0].upcase %>
 
                     </button>
-                    <div data-dropdown-target="menu" class="hidden absolute z-10 right-0 transform -translate-x-1 mt-3 px-2 w-screen max-w-md sm:px-0" style="position:absolute;">
-                        <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                            <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                                <%= link_to 'Edit Profile', edit_user_registration_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
-                                <%= link_to 'Bildirimlerim', recommendations_path , class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium", data: { action: "click->modal#open", turbo: true, turbo_frame: 'modal' } %>
-                                <%= link_to 'Logout', destroy_user_session_path , method: :delete, data: { turbo: false }, class: "text-secondary-600 hover:text-primary-400 transition duration-100 font-medium" %>
+                    <div data-dropdown-target="menu" class="hidden absolute z-10 right-0 transform -translate-x-1 mt-3 w-screen max-w-md" style="position:absolute;">
+                        <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden backdrop-blur-sm">
+                            <div class="relative bg-white dark:bg-gray-800">
+                                <div class="px-5 py-3 border-b border-gray-200 dark:border-gray-700">
+                                    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Hesap Menüsü</h3>
+                                </div>
+
+                                <div class="p-1">
+                                    <%= link_to edit_user_registration_path, class: "flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition duration-150 group" do %>
+                                        <div class="flex-shrink-0 mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-primary-500" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary-500">Profili Düzenle</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Hesap bilgilerinizi güncelleyin</p>
+                                        </div>
+                                    <% end %>
+
+                                    <%= link_to notifications_path, data: { action: "click->modal#open", turbo: true, turbo_frame: 'modal' } do %>
+                                        <%= turbo_frame_tag "notification_count", data: { turbo_permanent: true } do %>
+                                            <%= render "notifications/notification_count", user: current_user %>
+                                        <% end %>
+                                    <% end %>
+
+                                    <%= turbo_stream_from "notification_count_#{current_user.id}" %>
+
+                                    <div class="my-1 border-t border-gray-200 dark:border-gray-700"></div>
+
+                                    <%= link_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "flex items-center px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition duration-150 group text-red-500 hover:text-red-600" do %>
+                                        <div class="flex-shrink-0 mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                                <polyline points="16 17 21 12 16 7"></polyline>
+                                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                                            </svg>
+                                        </div>
+                                        <p class="text-sm font-medium">Çıkış Yap</p>
+                                    <% end %>
+                                </div>
                             </div>
                         </div>
                     </div>

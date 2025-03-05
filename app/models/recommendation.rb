@@ -7,6 +7,7 @@ class Recommendation < ApplicationRecord
   validate :cannot_recommend_to_self
 
   after_create :send_recommendation_email
+  after_create_commit :notify_recipient
 
   private
 
@@ -18,5 +19,15 @@ class Recommendation < ApplicationRecord
 
   def send_recommendation_email
     RecommendationMailer.recommendation_email(self).deliver_now
+  end
+
+  private
+
+  def notify_recipient
+    recipient = User.find(recommended_to)
+    Notification.create!(
+      user: recipient,
+      notifiable: self
+    )
   end
 end
