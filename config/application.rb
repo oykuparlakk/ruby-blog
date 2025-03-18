@@ -12,6 +12,7 @@ module Blog
     config.load_defaults 7.2
     config.i18n.default_locale = :en
     config.i18n.available_locales = [ :en, :tr ]
+    config.active_job.queue_adapter = :sidekiq
 
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do

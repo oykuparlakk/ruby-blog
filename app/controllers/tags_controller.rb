@@ -3,6 +3,7 @@ class TagsController < ApplicationController
 
   def index
     @tags = Tag.all
+    @tags = [] if @tags.nil?
   end
 
   def show

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_05_170151) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_17_053423) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -66,6 +66,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_05_170151) do
     t.string "status"
     t.boolean "archived"
     t.integer "user_id", null: false
+    t.datetime "scheduled_publish_at"
+    t.datetime "publish_at"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -76,7 +78,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_05_170151) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+    t.text "content"
+    t.integer "user_id", null: false
     t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -137,6 +142,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_05_170151) do
   add_foreign_key "article_tags", "tags"
   add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
+  add_foreign_key "comments", "users"
   add_foreign_key "likes", "articles"
   add_foreign_key "likes", "users"
   add_foreign_key "notifications", "users"

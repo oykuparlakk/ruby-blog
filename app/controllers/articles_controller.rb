@@ -34,9 +34,16 @@ class ArticlesController < ApplicationController
 
   def create
     @article = current_user.articles.new(article_params)
-    if @article.save
-      notice_message = "Makale başarıyla oluşturuldu."
+    if params[:article][:schedule_publish] == "1" && params[:article][:publish_at].present?
+      @article.publish_at = Time.zone.parse(params[:article][:publish_at])
+      @article.status = "scheduled"
+    else
+      @article.publish_at = nil
+      @article.status = "public"
+    end
 
+    if @article.save
+      notice_message = @article.scheduled? ? "Makale planlandı, belirtilen tarihte yayınlanacak." : "Makale başarıyla oluşturuldu."
       respond_to do |format|
         format.html { redirect_to article_path(@article), notice: notice_message }
         format.turbo_stream { render turbo_stream: view_context.turbo_notification(notice_message) }
@@ -45,6 +52,9 @@ class ArticlesController < ApplicationController
       render :new, alert: "Makale oluşturulamadı"
     end
   end
+
+
+
 
   def edit
   end
@@ -73,6 +83,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :status, :image, tag_ids: [])
+    params.require(:article).permit(:title, :body, :status, :image, :publish_at, tag_ids: [])
   end
 end

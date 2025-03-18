@@ -1,8 +1,8 @@
 <div class="container mx-auto p-4 bg-white shadow-md rounded-lg" data-controller="tabs">
     <ul class="flex border-b border-gray-200 mb-4">
         <% @tags.each do |tag| %>
-            <li class="mr-2">
-                <%= link_to tag.name, tag_path(tag, format: :turbo_stream), 
+        <li class="mr-2">
+            <%= link_to tag.name, tag_path(tag, format: :turbo_stream), 
           class: "inline-block py-2 px-4 text-sm font-medium rounded-t-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500
             text-gray-500 hover:text-primary-600 hover:bg-gray-50
             border-b-2 border-transparent hover:border-primary-500",
@@ -11,9 +11,13 @@
             action: "click->tabs#change", 
             turbo_prefetch: false 
           } %>
-            </li>
+        </li>
         <% end %>
     </ul>
 
+    <% if @tags.present? && @tags.first.present? %>
     <turbo-frame id="articles_frame" src="<%= tag_path(@tags.first, format: :turbo_stream) %>" class="bg-white p-4 rounded-b-lg shadow-inner"></turbo-frame>
+    <% else %>
+    <p class="text-gray-500 p-4">Henüz bir etiket bulunmuyor.</p>
+    <% end %>
 </div>
